@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Models>
+	<Model name="OTrain" type="coupled" description="a coupled system representing the OTrain">
+		<Inputs>
+			<Port name="OT_PassengerIn" type="message" description="passenger ID entering the train"/>	
+			</Inputs>
+		<Outputs>
+			<Port name="OT_PassengerOut" type="message" description="passenger ID exiting the train"/>
+			<Port name="OT_StationNumber" type="message" description="current station the train has arrived at"/>
+		</Outputs>
+		<Files>	
+			<File name="OTrain.cpp" type="CPP" location="/"/>
+
+		</Files>
+	</Model>
+	<Model name="InTrainQueue" type="atomic" description="a queue that holds passengers on the train going to a specific destination">
+		<Inputs>
+			<Port name="StationNumberIn" type="message" description="current station number the train has arrived at"/>	
+			<Port name="PassengerIn" type="message" description="passenger ID entering the train"/>			
+		</Inputs>
+		<Outputs>
+			<Port name="PassengerOut" type="message" description="passenger ID exiting the train"/>
+		</Outputs>
+		<Files>
+			<File name="InTrainQueue.hpp" type="HPP" location="/"/>
+		</Files>
+	</Model>
+	<Model name="StationQueue" type="atomic" description="a queue that holds passengers at a specific station">
+		<Inputs>
+			<Port name="StationNumberIn" type="message" description="current station number the train has arrived at"/>	
+			<Port name="PassengerIn" type="message" description="passenger ID entering the station"/>			
+		</Inputs>
+		<Outputs>
+			<Port name="PassengerOut" type="message" description="passenger ID exiting the station"/>
+		</Outputs>
+		<Files>
+			<File name="StationQueue.hpp" type="HPP" location="/"/>
+		</Files>
+	</Model>
+	<Model name="StationArrivalGenerator" type="atomic" description="generates the station number the train is arriving at based on schedule">
+		<Inputs>
+		</Inputs>
+		<Outputs>
+			<Port name="StationNumber" type="message" description="current station number of train"/>
+		</Outputs>
+		<Files>
+			<File name="StationArrivalGenerator.hpp" type="HPP" location="/"/>
+		</Files>
+	</Model>
+		<Model name="StationPassengerGenerator" type="atomic" description="generates unique passenger IDs over a stochasticly varying wait time">
+		<Inputs>
+		</Inputs>
+		<Outputs>
+			<Port name="PassengerInitial" type="message" description="passenger ID of generated passenger"/>
+		</Outputs>
+		<Files>
+			<File name="StationPassengerGenerator.hpp" type="HPP" location="/"/>
+		</Files>
+	</Model>
+</Models>
